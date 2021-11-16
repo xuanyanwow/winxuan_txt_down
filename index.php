@@ -75,8 +75,11 @@ function down($member_authorization, $product_sale_id, $book_name, $chapter = 1,
         $path = __DIR__.'/save/'.$book_name.'.txt';
 
         file_put_contents($path, $save_content,FILE_APPEND);
+        $endFlag = $response['result']['endFlag'];
+        unset($response);
+        unset($save_content);
 
-        if ($response['result']['endFlag']){
+        if ($endFlag){
             // 本章结束 进入下一章
             down($member_authorization, $product_sale_id, $book_name, $chapter+1, 0);
             return ;
